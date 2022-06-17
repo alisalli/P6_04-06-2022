@@ -9,7 +9,7 @@ const sauceRoutes = require('./routes/sauce');
 const path = require('path');
 
 // Initialisation de Mongoose - connection à MongoDB
-mongoose.connect('mongodb+srv://Aslan95:Aslanim@sauce.izkmo.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://Aslan95:ASlanim95@sauce.izkmo.mongodb.net/?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
