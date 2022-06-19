@@ -11,7 +11,7 @@ const router = express.Router();
 
 
 // Envoi des données du formulaire de Signup dans la collection "users" de MongoDB 
-router.post('/signup', password, userControle.createUser);
+router.post('/signup', userControle.createUser);
 // Envoi des données du formulaire de Login dans la collection "users" de MongoDB 
 router.post('/login', userControle.loginUser);
 

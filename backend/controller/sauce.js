@@ -37,7 +37,7 @@ exports.createSauce = (req, res, next) => {
     // on crée et on sauvegarde une sauce dans la collection MongoDB en mettant en place les protocoles de sécurité
     const sauce = new Sauce({
         ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/image/${req.file.filename}`
     });
     sauce.save()
         .then(() => res.status(201).json({
@@ -55,9 +55,9 @@ exports.modifySauce = (req, res, next) => {
                     _id: req.params.id
                 })
                 .then((sauce => { // récupération du nom de la photo à supprimer
-                    const filename = sauce.imageUrl.split('/images/')[1];
+                    const filename = sauce.imageUrl.split('/image/')[1];
                     // suppression de l'image lors de la mise à jour de la sauce
-                    fs.unlink(`images/${filename}`, (error) => {
+                    fs.unlink(`image/${filename}`, (error) => {
                         if (error) throw error
                     })
                 }))
@@ -69,7 +69,7 @@ exports.modifySauce = (req, res, next) => {
         }
         const sauceObject = req.file ? { // On récupère les informations existantes depuis la collection MongoDB, puis on met à jour les informations
             ...JSON.parse(req.body.sauce),
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `${req.protocol}://${req.get('host')}/image/${req.file.filename}`
         } : {
             ...req.body
         };
@@ -93,9 +93,9 @@ exports.deleteSauce = (req, res, next) => {
             _id: req.params.id
         })
         .then(sauce => {
-            const filename = sauce.imageUrl.split('/images/')[1];
+            const filename = sauce.imageUrl.split('/image/')[1];
             //On supprime la sauce grâce à son id et on supprime l'image dans le dossier images grâce à la méthode unlink
-            fs.unlink(`images/${filename}`, () => {
+            fs.unlink(`image/${filename}`, () => {
                 Sauce.deleteOne({
                         _id: req.params.id
                     }, {

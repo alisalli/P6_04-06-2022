@@ -28,12 +28,12 @@ app.use((req, res, next) => {
 
 
 // configuration du dossier "images" qui accueillera les images des sauces et qui sera mis à jour
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/image', express.static(path.join(__dirname, 'image')));
 app.use(express.urlencoded({ extended: true }));
 // configuration de body parser
 app.use(express.json());
 // configuration des routes 
-app.use('/api/sauces/', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 // Exportation

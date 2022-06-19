@@ -11,19 +11,16 @@ const jwt = require('jsonwebtoken');
 
 //Controller "createUser" permet à un nouvel utilisateur de créer un compte
 exports.createUser = (req, res, next) => {
-    // chiffrer l'email 
-    const cryptojsEmail = cryptojs.HmacSHA256(req.body.email, 'SECRET_KEY_123').toString();
     // on crypte le mot de passe à 10 reprises pour plus de sécurité
     bcrypt
         .hash(req.body.password, 10)
         .then((hash) => {
             // on crée un nouveau modèle qui prend en compte le cryptage du mot de passe
             const user = new User({
-                firstName,
-                lastName,
-                email: cryptojsEmail,
+                email: req.body.email,
                 password: hash
             });
+            console.log('inscription');
             // on sauvegarde dans la collection "users" de MongoDB
             user.save()
                 .then(() => res.status(201).json({
@@ -45,7 +42,7 @@ exports.loginUser = (req, res, next) => {
     const cryptojsEmail = cryptojs.HmacSHA256(req.body.email, 'SECRET_KEY_123').toString();
 
     User.findOne({
-            email: cryptojsEmail
+            email: req.body.email
         })
         .then(user => {
             if (!user) {
