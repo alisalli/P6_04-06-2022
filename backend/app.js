@@ -8,14 +8,18 @@ const sauceRoutes = require('./routes/sauce');
 // Importation de path
 const path = require('path');
 
-// Initialisation de Mongoose - connection à MongoDB
-mongoose.connect('mongodb+srv://Aslan95:ASlanim95@sauce.izkmo.mongodb.net/?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch((e) => console.log(e, 'Connexion à MongoDB échouée !'));
+// Importation du module dotenv pour utiliser les variables d'environnement écrites dans le  fichier .env dans le répertoire racine du dossier backend
+require("dotenv").config();
 
+// Initialisation de Mongoose - connection à MongoDB
+mongoose
+  .connect(process.env.SECRET_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
+  
 // Initialisation du server
 const app = express();
 

@@ -3,7 +3,7 @@
 // Importation de "express"
 const express = require('express');
 // Importation du middleware password
-const password = require('../middleware/validator');
+const validator = require('../middleware/validator');
 // Importation du "controller" relatif à user
 const userControle = require('../controller/user');
 // Importation des routes de "express"
