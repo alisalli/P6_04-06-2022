@@ -9,8 +9,8 @@ const cryptojs = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
 
-//Controller "createUser" permet à un nouvel utilisateur de créer un compte
-exports.createUser = (req, res, next) => {
+//Controller "signup" permet à un nouvel utilisateur de créer un compte
+exports.signup = (req, res, next) => {
     // on crypte le mot de passe à 10 reprises pour plus de sécurité
     bcrypt
         .hash(req.body.password, 10)
@@ -36,8 +36,8 @@ exports.createUser = (req, res, next) => {
             message: "une erreur est survenue"
         }));
 };
-//Controller "loginUser" permet à un utilisateur déjà enregistré dans la collection "Users" de se connecter à son compte
-exports.loginUser = (req, res, next) => {
+//Controller "login" permet à un utilisateur déjà enregistré dans la collection "Users" de se connecter à son compte
+exports.login = (req, res, next) => {
     // La méthode findOne avec le paramètre "email", permet de retrouver un user grâce à son email
     const cryptojsEmail = cryptojs.HmacSHA256(req.body.email, 'SECRET_KEY_123').toString();
 
