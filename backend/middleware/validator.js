@@ -5,22 +5,12 @@ passwordSchema = new passwordValidator();
 
 // le schéma que doit respecter l'utilisateur
 passwordSchema
-    .is()
-    .min(6) // Minimum length 8
-    .is()
-    .max(100) // Maximum length 100
-    .has()
-    .uppercase(1) // Must have uppercase letters
-    .has()
-    .lowercase() // Must have lowercase letters
-    .has()
-    .digits(2) // Must have at least 2 digits
-    .has()
-    .not()
-    .spaces() // Should not have spaces
-    .is()
-    .not()
-    .oneOf(["Passw0rd", "Password123"]); // Blacklist these values
+.is().min(8)                                    // Longueur minimun : 8
+.has().uppercase()                              // Doit avoir au moins une majuscule
+.has().lowercase()                              // Doit avoir au moins une minuscule
+.has().digits()                                 // Doit avoir au moins un chiffre
+.has().not().spaces()                           // Ne doit pas avoir d'espaces
+.is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist de valeurs à proscrire
 
 module.exports = (req, res, next) => {
     if (passwordSchema.validate(req.body.password)) {
