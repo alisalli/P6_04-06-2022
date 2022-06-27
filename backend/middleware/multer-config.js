@@ -41,4 +41,4 @@ module.exports = multer({
         // le frontend ne permet pas encore d'afficher un message d'erreur mais la taille des photos est limitée à 650 * 650
         fileSize: 650 * 350
     },
-}).single('images');
+}).single('image');
