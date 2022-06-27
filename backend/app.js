@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 
 
 // configuration du dossier "images" qui accueillera les images des sauces et qui sera mis à jour
-app.use('/image', express.static(path.join(__dirname, 'image')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.urlencoded({ extended: true }));
 // configuration de body parser
 app.use(express.json());

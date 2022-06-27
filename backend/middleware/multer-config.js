@@ -16,7 +16,7 @@ const MIME_TYPES = {
 const storage = multer.diskStorage({
     // la destination du stockage du fichier
     destination: (req, file, callback) => {
-        callback(null, 'image');
+        callback(null, 'images');
     },
     filename: (req, file, callback) => {
         //suppression des espaces dans les noms des fichiers images
@@ -41,4 +41,4 @@ module.exports = multer({
         // le frontend ne permet pas encore d'afficher un message d'erreur mais la taille des photos est limitée à 650 * 650
         fileSize: 650 * 350
     },
-}).single('image');
+}).single('images');

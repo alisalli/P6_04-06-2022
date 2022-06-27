@@ -44,7 +44,7 @@ exports.createSauce = (req, res, next) => {
   // on crée et on sauvegarde une sauce dans la collection MongoDB en mettant en place les protocoles de sécurité
   const sauce = new Sauce({
     ...sauceObject,
-    imageUrl: `${req.protocol}://${req.get("host")}/image/${req.file.filename}`,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   });
   sauce
     .save()
@@ -68,9 +68,9 @@ exports.modifySauce = (req, res, next) => {
     })
       .then((sauce) => {
         // récupération du nom de la photo à supprimer
-        const filename = sauce.imageUrl.split("/image/")[1];
+        const filename = sauce.imageUrl.split("/images/")[1];
         // suppression de l'image lors de la mise à jour de la sauce
-        fs.unlink(`image/${filename}`, (error) => {
+        fs.unlink(`images/${filename}`, (error) => {
           if (error) throw error;
         });
       })
@@ -86,7 +86,7 @@ exports.modifySauce = (req, res, next) => {
     ? {
         // On récupère les informations existantes depuis la collection MongoDB, puis on met à jour les informations
         ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get("host")}/image/${
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
@@ -120,9 +120,9 @@ exports.deleteSauce = (req, res, next) => {
     _id: req.params.id,
   })
     .then((sauce) => {
-      const filename = sauce.imageUrl.split("/image/")[1];
+      const filename = sauce.imageUrl.split("/images/")[1];
       //On supprime la sauce grâce à son id et on supprime l'image dans le dossier images grâce à la méthode unlink
-      fs.unlink(`image/${filename}`, () => {
+      fs.unlink(`images/${filename}`, () => {
         Sauce.deleteOne(
           {
             _id: req.params.id,
